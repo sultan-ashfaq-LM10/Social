@@ -1,0 +1,31 @@
+body {
+    background-color: $body-bg!important;
+}
+.text-muted {
+    --bs-text-opacity: 1;
+    color: #6c757d !important;
+}
+.bg-gray {
+    background-color: $body-bg;
+}
+.homefeed-placeholder-img {
+    width: 40px!important;
+    height: 40px!important;
+    border-radius: 50%!important;
+}
+
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+    transition: all 0.3s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+}
+a.is-active {
+    color: $primary!important;
+    border-bottom: 3px solid $primary!important;
+}
