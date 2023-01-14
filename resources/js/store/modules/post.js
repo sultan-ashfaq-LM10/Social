@@ -29,30 +29,6 @@ const actions = {
         return error.response;
       })
   },
-
-    apiGetHomePosts({commit}) {
-        return axios
-        .get('api/home/posts')
-        .then((resp) => {
-            commit("setPosts", resp.data);
-            return resp.data;
-        })
-        .catch((error) => {
-            console.log(error.response)
-        })
-    },
-
-    apiFetchProfilePosts({commit}) {
-        return axios
-        .get('api/profile/posts')
-        .then((resp) => {
-            commit("setPosts", resp.data);
-            return resp.data;
-        })
-        .catch((error) => {
-            console.log(error.response)
-        })
-    },
 }
 
 export default {

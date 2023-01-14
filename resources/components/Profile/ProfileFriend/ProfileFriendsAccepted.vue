@@ -1,28 +1,32 @@
 <template>
-    <ProfileFriendsList :friends="friends" type="accepted"></ProfileFriendsList>
+  <UsersList
+    :friends="friends"
+    type="accepted"
+    @updateFriendsList="apiGetFriendsAccepted()"
+  ></UsersList>
 </template>
 
 <script>
-import ProfileFriendsList from "./ProfileFriendsList.vue";
-
+import { mapState, mapActions } from "vuex";
+import UsersList from "../../Partials/UsersList.vue";
 export default {
-    components: {ProfileFriendsList},
+  components: { UsersList },
+  computed: {
+    ...mapState({
+      friends: (state) => state.profile.acceptedFriends,
+    }),
+  },
 
-    data(){
-        return{
-            friends: []
-        }
-    },
+  methods: {
+    ...mapActions({
+      apiGetFriendsAccepted: "profile/apiGetFriendsAccepted",
+    }),
+  },
 
-    mounted() {
-        let self = this
-        axios.get('/api/profile/friends?type=accepted').then((resp) => {
-            self.friends = resp.data
-        })
-    },
-}
+  mounted() {
+    this.apiGetFriendsAccepted();
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

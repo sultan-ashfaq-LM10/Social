@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation />
+      <b-progress v-show="isLoading" type="is-primary" size="is-small"></b-progress>
     <Content v-if="authUser != null"></Content>
     <Auth v-else></Auth>
   </div>
@@ -17,7 +18,8 @@ export default {
 
     computed: {
       ...mapState({
-          authUser: state => state.authUser
+          authUser: state => state.authUser,
+          isLoading: state => state.isLoading
       })
     },
 
@@ -39,6 +41,7 @@ export default {
 import Vue from 'vue'
 
 Vue.mixin({
+
   // global methods to use within in the VUE app
   methods: {
     toastSuccess(message, timer = 2000) {

@@ -27,16 +27,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('comments.likes', \App\Http\Controllers\Api\CommentLikeController::class);
     Route::get('/users/details', [\App\Http\Controllers\Api\UserController::class, 'userInfo']); // this is logged in user details
 
+    Route::apiResource('/search/users', \App\Http\Controllers\Api\UserSearchController::class);
+
+
     /** Profile Friend Routes */
     Route::prefix('/profile')->group(function (){
         Route::apiResource('/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
-//        Route::get('/friends/accepted', [\App\Http\Controllers\Api\ProfileFriendController::class, 'accepted']);
-//        Route::get('/friends/pending', [\App\Http\Controllers\Api\ProfileFriendController::class, 'pending']);
 
-
-//        Route::get('/friends', [\App\Http\Controllers\Api\ProfileFriendController::class, 'index']);
-//        Route::get('/friends/accepted', [\App\Http\Controllers\Api\ProfileFriendController::class, 'accepted']);
-//        Route::get('/friends/pending', [\App\Http\Controllers\Api\ProfileFriendController::class, 'pending']);
 
         Route::get('/{user}/friends', [\App\Http\Controllers\Api\FriendController::class, 'friends']);
         Route::get('/{user}/friends/accepted', [\App\Http\Controllers\Api\FriendController::class, 'acceptedFriends']);

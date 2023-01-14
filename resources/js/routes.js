@@ -13,6 +13,12 @@ export default {
             name: 'App',
             meta: { requiresAuth: false },
             children: [
+              {
+                path: '/search',
+                component: () => import('../components/Search/SearchIndex.vue'),
+                name: 'Search',
+                meta: { requiresAuth: false },
+              },
                 {
                     path: '/home',
                     component: () => import('../components/HomeFeed/HomeFeedIndex.vue'),

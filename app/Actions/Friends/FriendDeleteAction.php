@@ -2,14 +2,22 @@
 
 namespace App\Actions\Friends;
 
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\DB;
 
 class FriendDeleteAction
 {
-    public static function execute(int $id): bool
+    public static function execute(int $userId, int $friendId): bool
     {
         return DB::table('friends')
-            ->where('id', '=', $id)
-            ->delete();
+            ->where(function ($query) use($userId, $friendId) {
+                $query->where('user_id', '=', $userId)
+                    ->where('friend_id', '=', $friendId);
+            })
+            ->orWhere(function ($query) use($userId, $friendId) {
+                $query->where('user_id', '=', $friendId)
+                    ->where('friend_id', '=', $userId);
+            })->delete();
     }
 }

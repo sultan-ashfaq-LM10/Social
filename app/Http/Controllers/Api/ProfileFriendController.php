@@ -75,10 +75,10 @@ class ProfileFriendController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($friendId)
     {
         try {
-            return response()->json(FriendDeleteAction::execute($id));
+            return response()->json(FriendDeleteAction::execute(auth()->id(), $friendId));
         }
         catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);

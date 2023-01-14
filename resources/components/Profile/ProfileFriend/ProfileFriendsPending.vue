@@ -1,28 +1,33 @@
 <template>
-    <ProfileFriendsList :friends="friends" type="pending"></ProfileFriendsList>
+  <UsersList
+    :friends="friends"
+    type="pending"
+    @updateFriendsList="apiGetFriendsPending()"
+  ></UsersList>
 </template>
 
 <script>
-import ProfileFriendsList from "./ProfileFriendsList.vue";
+import { mapState, mapActions } from "vuex";
+import UsersList from "../../Partials/UsersList.vue";
 
 export default {
-    components: {ProfileFriendsList},
+  components: { UsersList },
+  computed: {
+    ...mapState({
+      friends: (state) => state.profile.pendingFriends,
+    }),
+  },
 
-    data(){
-        return{
-            friends: []
-        }
-    },
+  methods: {
+    ...mapActions({
+      apiGetFriendsPending: "profile/apiGetFriendsPending",
+    }),
+  },
 
-    mounted() {
-        let self = this
-        axios.get('/api/profile/friends?type=pending').then((resp) => {
-            self.friends = resp.data
-        })
-    },
-}
+  mounted() {
+    this.apiGetFriendsPending();
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

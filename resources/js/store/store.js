@@ -15,11 +15,15 @@ export default new Vuex.Store({
 
   state: {
     authUser: null,
+    isLoading: false,
   },
 
   mutations: {
     setAuthUser(state, payload) {
       state.authUser = payload
+    },
+    setIsLoading(state) {
+      state.isLoading = !state.isLoading
     },
   },
 
@@ -30,8 +34,10 @@ export default new Vuex.Store({
       })
     },
     logout({ commit }) {
+      commit('setIsLoading')
       axios.post('logout').then((resp) => {
         commit('setAuthUser', null)
+        commit('setIsLoading')
       })
     },
 

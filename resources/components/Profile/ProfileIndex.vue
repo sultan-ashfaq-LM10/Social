@@ -1,7 +1,7 @@
 <template>
     <div class="columns is-mobile is-centered">
         <div class="column is-four-fifths has-background-white my-6">
-            <b-tabs type="is-boxed">
+            <b-tabs type="is-boxed" destroyOnHide>
                 <b-tab-item label="Posts" icon="google-photos">
                     <ProfilePosts/>
                 </b-tab-item>
