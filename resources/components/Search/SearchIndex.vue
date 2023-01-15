@@ -13,13 +13,13 @@
           <b-button
             type="is-primary"
             label="Search"
-            @click="searchUsers"
+            @click="apiSearchUsers(query)"
           />
         </p>
       </b-field>
 
       <UsersList
-        :friends="friends"
+        :users="users"
         type="accepted"
       />
     </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {mapState, mapActions} from "vuex";
 import UsersList from '../Partials/UsersList.vue'
 export default {
   components: { UsersList },
@@ -37,19 +38,16 @@ export default {
     }
   },
 
-  mounted () {
+  computed: {
+    ...mapState({
+      users: (state) => state.search.users
+    })
   },
 
   methods: {
-    searchUsers () {
-      this.apiSearchUsers(this.query)
-    },
-
-    apiSearchUsers (query) {
-      axios.get(`/api/search/users?query=${this.query}`).then((resp) => {
-        console.log(resp.data)
-      })
-    }
+    ...mapActions({
+      apiSearchUsers: "search/apiSearchUsers"
+    }),
   }
 }
 

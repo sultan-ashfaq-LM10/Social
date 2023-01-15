@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import home from './modules/home'
 import profile from './modules/profile'
 import post from './modules/post'
+import search from './modules/search'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     home,
     profile,
     post,
+    search
   },
 
   state: {

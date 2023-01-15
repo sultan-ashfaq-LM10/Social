@@ -1,15 +1,15 @@
 <template>
-  <ProfileFriendsList
+  <FriendsList
     :friends="friends"
     type="requests"
   />
 </template>
 
 <script>
-import ProfileFriendsList from './ProfileFriendsList.vue'
+import FriendsList from '../../Partials/FriendsList.vue'
 
 export default {
-  components: { ProfileFriendsList },
+  components: { FriendsList },
 
   data () {
     return {

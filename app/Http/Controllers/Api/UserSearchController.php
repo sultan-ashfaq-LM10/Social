@@ -6,22 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserSearchController extends Controller
 {
+    /**
+     * Search for users
+     * For simplicity sake, return users who are not friends or has pending friend request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function index()
     {
         try {
-            $query = request()->get('query') ?? '';
-
-            if ($query === '') {
+            $name = request()->get('query') ?? '';
+            if ($name === '') {
                 return response()->json(collect());
             }
-
-            return response()->json(UserResource::collection(
-                User::query()->where('name', 'like', "{$query}%")
-                ->get()
-            ));
+            $userQuery = User::query()
+                ->where('name', 'like', "{$name}%")
+                ->whereDoesntHave('friends')
+                ->whereDoesntHave('friendsTo');
+            return response()->json(
+                UserResource::collection($userQuery->get())
+            );
         }
         catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);

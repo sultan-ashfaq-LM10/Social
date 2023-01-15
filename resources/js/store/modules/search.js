@@ -1,24 +1,30 @@
 // states
 const state = {
-  posts: []
+  users: []
 }
 
 // getters
 const getters = {
-  getPosts(){
-    return state.posts
+  getUsers(){
+    return state.users
   }
 }
 
 // mutations
 const mutations = {
-  setPosts(state, posts){
-    state.posts = posts
+  setUsers(state, users){
+    state.users = users
   }
 }
 
 // actions
 const actions = {
+  apiSearchUsers ({commit}, query) {
+    axios.get(`/api/search/users?query=${query}`).then((resp) => {
+      console.log(resp.data)
+      commit('setUsers', resp.data)
+    })
+  }
 }
 
 export default {

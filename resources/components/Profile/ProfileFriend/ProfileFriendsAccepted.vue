@@ -1,5 +1,5 @@
 <template>
-  <UsersList
+  <FriendsList
     :friends="friends"
     type="accepted"
     @updateFriendsList="apiGetFriendsAccepted()"
@@ -8,9 +8,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import UsersList from '../../Partials/UsersList.vue'
+import FriendsList from '../../Partials/FriendsList.vue'
 export default {
-  components: { UsersList },
+  components: { FriendsList },
 
   computed: {
     ...mapState({
