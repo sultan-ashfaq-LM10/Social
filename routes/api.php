@@ -34,7 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/profile')->group(function (){
         Route::apiResource('/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
 
-
         Route::get('/{user}/friends', [\App\Http\Controllers\Api\FriendController::class, 'friends']);
         Route::get('/{user}/friends/accepted', [\App\Http\Controllers\Api\FriendController::class, 'acceptedFriends']);
         Route::get('/{user}/friends/pending', [\App\Http\Controllers\Api\FriendController::class, 'pendingFriends']);

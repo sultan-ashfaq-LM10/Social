@@ -41,12 +41,12 @@ export default {
 
     addUser(userId) {
       let self = this
-      axios.post(`/api/profile/users`, {
+      axios.post(`/api/profile/friends`, {
         'user_id': userId
       }).then(resp => {
         if (resp.data) {
-          self.toastSuccess('user removed')
-          self.$emit('updateusersList')
+          self.toastSuccess('Friend request sent!')
+          self.$emit('updateUsersList')
         }
       })
     },
