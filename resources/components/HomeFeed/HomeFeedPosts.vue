@@ -1,11 +1,14 @@
 <template>
   <div>
-      <CreatePost @post-created="getPosts"></CreatePost>
-    <div v-show="showSkeleton" class="column is-half is-offset-one-quarter p-3 has-background-white box">
-      <Skeleton ></Skeleton>
+    <CreatePost @post-created="getPosts" />
+    <div
+      v-show="showSkeleton"
+      class="column is-half is-offset-one-quarter p-3 has-background-white box"
+    >
+      <Skeleton />
     </div>
 
-      <ListPost :posts="posts"></ListPost>
+    <ListPost :posts="posts" />
   </div>
 </template>
 
@@ -18,7 +21,7 @@ import Skeleton from '../Skeleton.vue'
 export default {
   components: { CreatePost, ListPost, Skeleton },
 
-  data(){
+  data () {
     return {
       showSkeleton: true
     }
@@ -26,30 +29,30 @@ export default {
 
   computed: {
     ...mapState({
-      posts: (state) => state.home.posts,
-    }),
+      posts: (state) => state.home.posts
+    })
+  },
+
+  mounted () {
+    this.getPosts()
   },
 
   methods: {
     ...mapActions({
-      apiGetHomePosts: 'home/apiGetPosts',
+      apiGetHomePosts: 'home/apiGetPosts'
     }),
     ...mapMutations({
-      setPosts: 'home/setPosts',
+      setPosts: 'home/setPosts'
     }),
 
-    getPosts() {
-      let self = this
-      let promise = this.apiGetHomePosts()
+    getPosts () {
+      const self = this
+      const promise = this.apiGetHomePosts()
       promise.then(function (resp) {
         self.setPosts(resp)
         self.showSkeleton = false
       })
-    },
-  },
-
-  mounted() {
-    this.getPosts()
-  },
+    }
+  }
 }
 </script>

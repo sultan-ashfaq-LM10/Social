@@ -1,25 +1,28 @@
 <template>
-    <ProfileFriendsList :friends="friends" type="requests"></ProfileFriendsList>
+  <ProfileFriendsList
+    :friends="friends"
+    type="requests"
+  />
 </template>
 
 <script>
-import ProfileFriendsList from "./ProfileFriendsList.vue";
+import ProfileFriendsList from './ProfileFriendsList.vue'
 
 export default {
-    components: {ProfileFriendsList},
+  components: { ProfileFriendsList },
 
-    data(){
-        return{
-            friends: []
-        }
-    },
+  data () {
+    return {
+      friends: []
+    }
+  },
 
-    mounted() {
-        let self = this
-        axios.get('/api/profile/friends?type=requests').then((resp) => {
-            self.friends = resp.data
-        })
-    },
+  mounted () {
+    const self = this
+    axios.get('/api/profile/friends?type=requests').then((resp) => {
+      self.friends = resp.data
+    })
+  }
 }
 </script>
 

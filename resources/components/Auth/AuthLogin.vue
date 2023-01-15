@@ -1,12 +1,22 @@
 <template>
   <div>
     <b-field label="Email">
-      <b-input v-model="email"></b-input>
+      <b-input v-model="email" />
     </b-field>
     <b-field label="Password">
-      <b-input v-model="password" type="password" value="" password-reveal> </b-input>
+      <b-input
+        v-model="password"
+        type="password"
+        value=""
+        password-reveal
+      />
     </b-field>
-    <b-button type="is-primary is-light" @click="submitLogin">Login</b-button>
+    <b-button
+      type="is-primary is-light"
+      @click="submitLogin"
+    >
+      Login
+    </b-button>
   </div>
 </template>
 
@@ -14,31 +24,31 @@
 import { mapActions } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       email: '',
-      password: '',
+      password: ''
     }
   },
 
   methods: {
     ...mapActions({
-      apiGetAuthUser: 'apiGetAuthUser',
+      apiGetAuthUser: 'apiGetAuthUser'
     }),
 
-    submitLogin() {
-      let self = this
+    submitLogin () {
+      const self = this
       axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
           .post('/login', {
             email: this.email,
-            password: this.password,
+            password: this.password
           })
           .then((re) => {
             self.apiGetAuthUser()
           })
       })
-    },
-  },
+    }
+  }
 }
 </script>

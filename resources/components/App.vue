@@ -1,69 +1,76 @@
 <template>
   <div>
     <Navigation />
-      <b-progress v-show="isLoading" type="is-primary" size="is-small"></b-progress>
-    <Content v-if="authUser != null"></Content>
-    <Auth v-else></Auth>
+    <b-progress
+      v-show="isLoading"
+      type="is-primary"
+      size="is-small"
+    />
+    <ContentSection v-if="authUser != null" />
+    <Auth v-else />
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import Navigation from './Navigation.vue'
-import Content from './Content.vue'
+import ContentSection from './ContentSection.vue'
 import Auth from './Auth/AuthIndex.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  props: ['authCheck'],
+  components: { Navigation, ContentSection, Auth },
 
-    computed: {
-      ...mapState({
-          authUser: state => state.authUser,
-          isLoading: state => state.isLoading
-      })
-    },
+  props: {
+    authCheck: {
+      type: Boolean,
+      default: false
+    }
+  },
 
-    methods: {
-      ...mapActions({
-          'apiGetAuthUser': 'apiGetAuthUser'
-      })
-    },
+  computed: {
+    ...mapState({
+      authUser: (state) => state.authUser,
+      isLoading: (state) => state.isLoading
+    })
+  },
 
-  mounted() {
+  mounted () {
     if (this.authCheck === true) {
       this.apiGetAuthUser()
     }
   },
 
-  components: { Navigation, Content, Auth },
+  methods: {
+    ...mapActions({
+      apiGetAuthUser: 'apiGetAuthUser'
+    })
+  }
 }
 
-import Vue from 'vue'
-
 Vue.mixin({
-
   // global methods to use within in the VUE app
   methods: {
-    toastSuccess(message, timer = 2000) {
+    toastSuccess (message, timer = 2000) {
       const ToastSuccess = this.$swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: timer,
+        timer,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', this.$swal.stopTimer)
           toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        },
+        }
       })
 
       ToastSuccess.fire({
         icon: 'success',
-        title: message,
+        title: message
       })
     },
 
-    toastError(message) {
+    toastError (message) {
       const ToastSuccess = this.$swal.mixin({
         toast: true,
         position: 'top-end',
@@ -73,37 +80,37 @@ Vue.mixin({
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', this.$swal.stopTimer)
           toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        },
+        }
       })
 
       ToastSuccess.fire({
         icon: 'error',
-        title: message,
+        title: message
       })
     },
 
-    swalDelete(title, buttonText) {
+    swalDelete (title, buttonText) {
       return new Promise((resolve, reject) => {
         this.$swal({
-          title: title,
+          title,
           showCancelButton: true,
           confirmButtonText: buttonText,
-          confirmButtonColor: '#cf3535',
+          confirmButtonColor: '#cf3535'
         }).then((result) => {
           resolve(result)
         })
       })
     },
 
-    swalError(text) {
+    swalError (text) {
       this.$swal({
         title: 'Error!',
-        text: text,
+        text,
         icon: 'error',
         confirmButtonText: 'Ok',
-        confirmButtonColor: '#1c1919',
+        confirmButtonColor: '#1c1919'
       })
-    },
-  },
+    }
+  }
 })
 </script>

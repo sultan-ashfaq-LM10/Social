@@ -1,44 +1,50 @@
 <template>
-    <section>
-        <b-button
-            label="Login"
-            type="is-primary"
-            size="is-medium"
-            @click="isComponentModalActive = true" />
+  <section>
+    <b-button
+      label="Login"
+      type="is-primary"
+      size="is-medium"
+      @click="isComponentModalActive = true"
+    />
 
-        <b-modal
-            v-model="isComponentModalActive"
-            has-modal-card
-            trap-focus
-            :destroy-on-hide="false"
-            aria-role="dialog"
-            aria-label="Example Modal"
-            close-button-aria-label="Close"
-            aria-modal>
-            <template #default="props">
-                <modal-form v-bind="formProps" @close="props.close" @submit-login="submitLogin"></modal-form>
-            </template>
-        </b-modal>
-    </section>
+    <b-modal
+      v-model="isComponentModalActive"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-label="Example Modal"
+      close-button-aria-label="Close"
+      aria-modal
+    >
+      <template #default="props">
+        <modal-form
+          v-bind="formProps"
+          @close="props.close"
+          @submit-login="submitLogin"
+        />
+      </template>
+    </b-modal>
+  </section>
 </template>
 
 <script>
 const ModalForm = {
-    data(){
-      return{
-      }
+  data () {
+    return {
+    }
+  },
+  props: ['canCancel'],
+  computed: {
+    email () {
+      return ''
     },
-    props: ['canCancel'],
-    computed: {
-        email() {
-            return ''
-        },
-        password() {
-            return ''
-        },
-    },
+    password () {
+      return ''
+    }
+  },
 
-    template: `
+  template: `
             <form action="">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
@@ -87,34 +93,34 @@ const ModalForm = {
 }
 
 export default {
-    components: {
-        ModalForm
-    },
-    data() {
-        return {
-            isComponentModalActive: false,
-        }
-    },
-    computed:{
-        formProps(){
-            return {
-                email: '',
-                password: ''
-            }
-        }
-    },
-
-    methods: {
-        submitLogin(){
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('/login', {
-                    "email": this.formProps.email,
-                    "password": this.formProps.password
-                }).then(re => {
-                    console.log(re)
-                })
-            });
-        }
+  components: {
+    ModalForm
+  },
+  data () {
+    return {
+      isComponentModalActive: false
     }
+  },
+  computed: {
+    formProps () {
+      return {
+        email: '',
+        password: ''
+      }
+    }
+  },
+
+  methods: {
+    submitLogin () {
+      axios.get('/sanctum/csrf-cookie').then(response => {
+        axios.post('/login', {
+          email: this.formProps.email,
+          password: this.formProps.password
+        }).then(re => {
+          console.log(re)
+        })
+      })
+    }
+  }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <CreatePost @post-created="getPosts"></CreatePost>
-    <ListPost :posts="posts"></ListPost>
+    <CreatePost @post-created="getPosts" />
+    <ListPost :posts="posts" />
   </div>
 </template>
 
@@ -15,22 +15,22 @@ export default {
 
   computed: {
     ...mapState({
-      posts: (state) => state.profile.posts,
-    }),
+      posts: (state) => state.profile.posts
+    })
+  },
+
+  mounted () {
+    this.getPosts()
   },
 
   methods: {
     ...mapActions({
-      apiGetPosts: 'profile/apiGetPosts',
+      apiGetPosts: 'profile/apiGetPosts'
     }),
 
-    getPosts() {
+    getPosts () {
       this.apiGetPosts()
-    },
-  },
-
-  mounted() {
-    this.getPosts()
-  },
+    }
+  }
 }
 </script>

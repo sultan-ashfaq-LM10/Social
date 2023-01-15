@@ -3,30 +3,31 @@
     :friends="friends"
     type="accepted"
     @updateFriendsList="apiGetFriendsAccepted()"
-  ></UsersList>
+  />
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import UsersList from "../../Partials/UsersList.vue";
+import { mapState, mapActions } from 'vuex'
+import UsersList from '../../Partials/UsersList.vue'
 export default {
   components: { UsersList },
+
   computed: {
     ...mapState({
-      friends: (state) => state.profile.acceptedFriends,
-    }),
+      friends: (state) => state.profile.acceptedFriends
+    })
+  },
+
+  mounted () {
+    this.apiGetFriendsAccepted()
   },
 
   methods: {
     ...mapActions({
-      apiGetFriendsAccepted: "profile/apiGetFriendsAccepted",
-    }),
-  },
-
-  mounted() {
-    this.apiGetFriendsAccepted();
-  },
-};
+      apiGetFriendsAccepted: 'profile/apiGetFriendsAccepted'
+    })
+  }
+}
 </script>
 
 <style scoped></style>
