@@ -23,26 +23,22 @@ class UserSearchController extends Controller
     {
         try {
             $name = request()->get('query') ?? '';
-//            if ($name === '') {
-//                return response()->json(collect());
-//            }
+            if ($name === '') {
+                return response()->json(collect());
+            }
             $authUserId = auth()->id();
 
             $name = trim($name);
             $name = strip_tags($name);
             $name = htmlentities($name, ENT_NOQUOTES);
-
-            //TODO: Raw sql is for performance only, which is crazy fast on huge list of users
-            // Convert this to either using bindings or laravel eloquent equivalent
             $users = DB::select("
             SELECT users.*, friend_relationships.user_id, friend_relationships.status
             FROM users
             LEFT JOIN friends AS friend_relationships
             ON (users.id = friend_relationships.friend_id AND friend_relationships.user_id = '$authUserId')
             OR (users.id = friend_relationships.user_id AND friend_relationships.friend_id = '$authUserId')
-            WHERE users.name LIKE '$name%'
+            WHERE users.name LIKE '$name%' and users.id != '$authUserId'
             ");
-
             $results = collect($users)->map(function($user) {
                 return [
                     'user' => $user,

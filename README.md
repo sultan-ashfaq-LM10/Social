@@ -13,7 +13,7 @@ Söcial is an ongoing project for my learning, improvement and fine-tuning my sk
 
 This is a Single Page Application, and current tech stack is:
 
-- Laravel (Backend)
+- Laravel 9 - PHP 8.1 (Backend)
   - Sanctum (For API authentication)
 - Vue 2 (Frontend)
   - Vuex (State management Library)
@@ -43,7 +43,7 @@ This is a Single Page Application, and current tech stack is:
 - Phpunit tests for api routes
 - Seeders (Users, Posts, Comments, Likes, etc) for generating a dummy social media data
 
-More updates will be added as soon as the Future updates are doing.
+More updates will be added as soon as the Future updates are done.
 I will be actively updating readme file to reflect the changes in the project.
 
 **How to setup this project in your local environment**:
