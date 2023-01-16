@@ -16,8 +16,8 @@ class FriendsGetAction
 
         return match (request()->get('type')) {
             'accepted' => $user->friendsAccepted->merge($user->friendsAcceptedTo),
-            'pending' => $user->friendsPending->merge($user->friendsPendingTo),
-//            'requests' => $user->pendingFriends->merge($user->pendingFriendsTo),
+            'pending' => $user->friendsPending,
+            'request' => $user->friendsPendingTo,
             default    => new Collection(),
         };
 

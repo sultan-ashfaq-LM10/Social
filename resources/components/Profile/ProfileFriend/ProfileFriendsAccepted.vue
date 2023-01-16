@@ -1,8 +1,7 @@
 <template>
   <FriendsList
     :friends="friends"
-    type="accepted"
-    @updateFriendsList="apiGetFriendsAccepted()"
+    type="Accepted"
   />
 </template>
 
@@ -14,7 +13,7 @@ export default {
 
   computed: {
     ...mapState({
-      friends: (state) => state.profile.acceptedFriends
+      friends: (state) => state.profileFriends.acceptedFriends
     })
   },
 
@@ -24,7 +23,7 @@ export default {
 
   methods: {
     ...mapActions({
-      apiGetFriendsAccepted: 'profile/apiGetFriendsAccepted'
+      apiGetFriendsAccepted: 'profileFriends/apiGetFriendsAccepted'
     })
   }
 }

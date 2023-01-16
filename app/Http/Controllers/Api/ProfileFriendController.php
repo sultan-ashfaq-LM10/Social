@@ -26,9 +26,6 @@ class ProfileFriendController extends Controller
             return response()->json(
                 FriendResource::collection(FriendsGetAction::execute(auth()->user()))
             );
-//            return response()->json(
-//                FriendResource::collection($user->acceptedFriends->merge($user->acceptedFriendsTo))
-//            );
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
@@ -62,7 +59,7 @@ class ProfileFriendController extends Controller
     public function update(UpdateFriendRequest $request, $friendId)
     {
         try {
-            return response()->json(FriendUpdateAction::execute($request->validated(), $friendId));
+            return response()->json(FriendUpdateAction::execute($request->validated(), auth()->user(), $friendId));
         }
         catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);

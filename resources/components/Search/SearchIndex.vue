@@ -20,7 +20,6 @@
 
       <UsersList
         :users="users"
-        type="accepted"
         @updateUsersList="apiSearchUsers(query)"
       />
     </div>

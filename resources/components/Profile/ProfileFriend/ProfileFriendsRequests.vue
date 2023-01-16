@@ -1,26 +1,29 @@
 <template>
   <FriendsList
     :friends="friends"
-    type="requests"
+    type="Request"
   />
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import FriendsList from '../../Partials/FriendsList.vue'
-
 export default {
   components: { FriendsList },
 
-  data () {
-    return {
-      friends: []
-    }
+  computed: {
+    ...mapState({
+      friends: (state) => state.profileFriends.requestFriends
+    })
   },
 
   mounted () {
-    const self = this
-    axios.get('/api/profile/friends?type=requests').then((resp) => {
-      self.friends = resp.data
+    this.apiGetFriendsRequest()
+  },
+
+  methods: {
+    ...mapActions({
+      apiGetFriendsRequest: 'profileFriends/apiGetFriendsRequest'
     })
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <FriendsList
     :friends="friends"
-    type="pending"
+    type="Pending"
     @updateFriendsList="apiGetFriendsPending()"
   />
 </template>
@@ -14,7 +14,7 @@ export default {
   components: { FriendsList },
   computed: {
     ...mapState({
-      friends: (state) => state.profile.pendingFriends
+      friends: (state) => state.profileFriends.pendingFriends
     })
   },
 
@@ -24,7 +24,7 @@ export default {
 
   methods: {
     ...mapActions({
-      apiGetFriendsPending: 'profile/apiGetFriendsPending'
+      apiGetFriendsPending: 'profileFriends/apiGetFriendsPending'
     })
   }
 }

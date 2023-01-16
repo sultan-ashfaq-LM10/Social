@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './modules/home'
 import profile from './modules/profile'
+import profileFriends from './modules/profile/friends'
 import post from './modules/post'
 import search from './modules/search'
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     home,
     profile,
+    profileFriends,
     post,
     search
   },

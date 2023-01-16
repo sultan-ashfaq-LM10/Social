@@ -17,26 +17,31 @@
         <span>{{ friend.user.name }}</span>
 
         <span
-          v-if="type === 'accepted'"
+          v-if="type === 'Accepted'"
           class="button is-danger is-light show-on-right"
-          @click="removeFriend(friend.id)"
+          @click="deleteFriend(friend.id, type)"
         >Remove Friend</span>
         <span
-          v-else-if="type === 'pending'"
+          v-else-if="type === 'Pending'"
           class="button is-light show-on-right"
-          @click="removeFriend(friend.id)"
+          @click="deleteFriend(friend.id, type)"
         >Cancel Request</span>
         <span
-          v-else-if="type === 'request'"
-          class="button is-danger is-light show-on-right"
-          @click="removeFriend(friend.id)"
-        >Reject Request</span>
+          v-else-if="type === 'Request'"
+          class="show-on-right"
+        >
+          <span class="button is-success is-light " @click="acceptFriend(friend.id)">Accept</span>
+          <span class="button is-danger is-light " @click="deleteFriend(friend.id, type)">Reject</span>
+        </span>
       </div>
     </div>
   </transition-group>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+import tab from "bootstrap/js/src/tab";
+
 export default {
   props: {
     friends: {
@@ -50,12 +55,32 @@ export default {
   },
 
   methods: {
-    removeFriend (friendId) {
+    ...mapActions({
+      'apiUpdateFriendsRequest' : 'profileFriends/apiUpdateFriendsRequest',
+      'apiDeleteFriendsRequest' : 'profileFriends/apiDeleteFriendsRequest'
+    }),
+
+    acceptFriend (friendId){
       const self = this
-      axios.delete(`/api/profile/friends/${friendId}`).then(resp => {
-        if (resp.data) {
-          self.toastSuccess('Friend removed')
-          self.$emit('updateFriendsList')
+      let payload = {id: friendId, type: 1}
+      let apiUpdateFriendsRequestPromise = this.apiUpdateFriendsRequest(payload)
+      apiUpdateFriendsRequestPromise.then(function (resp){
+        // if (resp) {
+          self.toastSuccess('Friend added!')
+          // self.$emit('updateFriendsList')
+        // }
+      })
+    },
+
+    deleteFriend (friendId, tabType) {
+      const self = this
+      let payload = {id: friendId, tabType}
+
+      let apiDeleteFriendPromise = this.apiDeleteFriendsRequest(payload)
+      apiDeleteFriendPromise.then(function (resp){
+        if (resp) {
+          self.toastSuccess('Friend removed!')
+          // self.$emit('updateFriendsList')
         }
       })
     }
