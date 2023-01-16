@@ -9,18 +9,56 @@
 
 ## About Social
 
-Söcial is a practice project for honing my coding skill set. The idea is to implement clean coding using S.O.L.I.D
-designer principles; 
+Söcial is an ongoing project for my learning, improvement and fine-tuning my skill set.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is a Single Page Application, and current tech stack is:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel (Backend)
+  - Sanctum (For API authentication)
+- Vue 2 (Frontend)
+  - Vuex (State management Library)
+  - Vue Router (SPA)
+  - Buefy (Bulma UI component Library)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-ke reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Current Features**:
+- Login/Register
+- Home Feed
+  - Create post (Public, Private, Everyone)
+  - Show posts with 'Everyone' visibility
+- Auth Profile (Auth user only)
+  - Create post (Public, Private, Everyone)
+  - Show posts
+- Friends
+  - Accepted Friends
+    - Remove friends
+  - Pending Friends
+    - Cancel request
+  - Friend requests
+    - Accept/Reject request
+
+**Future Updates**:
+- Profile Detail section
+- Public profile (all features from auth profile)
+- Post and Comment Likes (Frontend--Backend is already implemented)
+- Phpunit tests for api routes
+- Seeders (Users, Posts, Comments, Likes, etc) for generating a dummy social media data
+
+More updates will be added as soon as the Future updates are doing.
+I will be actively updating readme file to reflect the changes in the project.
+
+**How to setup this project in your local environment**:
+
+I used Laravel valet as a server and DBngin as my local mysql database. You can find the env settings in env.example file.
+It's up to you, however you want to set it up e.g. using sail, xampp, etc.
+
+Once you have the environment setup:
+
+Run the following commands:
+
+```
+composer install
+php artisan migrate
+npm install
+npm run dev
+php artisan optimize
+```
