@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Social
+## About Söcial
 
 Söcial is an ongoing project for my learning, improvement and fine-tuning my skill set.
 
