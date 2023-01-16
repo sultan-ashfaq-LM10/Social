@@ -9,7 +9,7 @@
           label="Posts"
           icon="google-photos"
         >
-          <ProfilePosts />
+          <Posts />
         </b-tab-item>
         <b-tab-item
           label="Friends"
@@ -21,15 +21,19 @@
           label="Details"
           icon="video"
         />
+
+        <Details />
+
       </b-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import ProfilePosts from './ProfilePosts.vue'
+import Posts from './ProfilePosts.vue'
 import Friends from './ProfileFriend/ProfileFriendsIndex.vue'
+import Details from './ProfileDetails.vue'
 export default {
-  components: { ProfilePosts, Friends }
+  components: { Posts, Friends, Details }
 }
 </script>

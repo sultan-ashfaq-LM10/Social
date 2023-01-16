@@ -11,9 +11,9 @@ class StorePostAction
     public static function execute(
         array $data,
         User|Authenticatable $user
-    ): bool {
+    ): Post {
         $post = new Post($data);
         $post->user()->associate($user);
-        return $post->save();
+        return tap($post)->save();
     }
 }

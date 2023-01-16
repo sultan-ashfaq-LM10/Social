@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     /** Profile Friend Routes */
     Route::prefix('/profile')->group(function (){
         Route::apiResource('/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
-        Route::apiResource('{user}/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
+//        Route::apiResource('{user}/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
     });
 });
 
