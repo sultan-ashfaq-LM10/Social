@@ -15,33 +15,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users/details', [\App\Http\Controllers\Api\UserController::class, 'userInfo']);
+//    Route::apiResource('/users', \App\Http\Controllers\Api\UserController::class);
 
     Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 
     Route::get('/home/posts', \App\Http\Controllers\Api\HomePostController::class);
     Route::get('/profile/posts', \App\Http\Controllers\Api\UserPostController::class);
-    Route::get('/profile/{user}/posts', \App\Http\Controllers\Api\ProfilePostController::class);
+    Route::get('/profile/{user}/posts', \App\Http\Controllers\Api\ProfileUserPostController::class);
 
     Route::apiResource('posts.comments', \App\Http\Controllers\Api\CommentController::class);
     Route::apiResource('posts.likes', \App\Http\Controllers\Api\PostLikeController::class);
     Route::apiResource('comments.likes', \App\Http\Controllers\Api\CommentLikeController::class);
-    Route::get('/users/details', [\App\Http\Controllers\Api\UserController::class, 'userInfo']); // this is logged in user details
 
     Route::apiResource('/search/users', \App\Http\Controllers\Api\UserSearchController::class);
-
 
     /** Profile Friend Routes */
     Route::prefix('/profile')->group(function (){
         Route::apiResource('/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
-
-//        Route::get('/{user}/friends', [\App\Http\Controllers\Api\FriendController::class, 'friends']);
-//        Route::get('/{user}/friends/accepted', [\App\Http\Controllers\Api\FriendController::class, 'acceptedFriends']);
-//        Route::get('/{user}/friends/pending', [\App\Http\Controllers\Api\FriendController::class, 'pendingFriends']);
+        Route::apiResource('{user}/friends', \App\Http\Controllers\Api\ProfileFriendController::class);
     });
-
-//    Route::post('/users/friends', [\App\Http\Controllers\Api\FriendController::class, 'store']);
-//    Route::post('/users/friends/accept', [\App\Http\Controllers\Api\FriendController::class, 'accept']);
-//    Route::post('/users/friends/reject', [\App\Http\Controllers\Api\FriendController::class, 'reject']);
 });
 
 

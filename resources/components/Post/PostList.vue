@@ -8,7 +8,7 @@
       <div
         v-for="post in posts"
         :key="post.id"
-        class="meme column is-half is-offset-one-quarter p-3 has-background-white box"
+        class="column is-half is-offset-one-quarter p-3 has-background-white box"
       >
         <div class="is-flex">
           <img

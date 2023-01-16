@@ -4,6 +4,8 @@
 /public/storage
 /public/js/*.js
 /public/css/app.css
+/public/vendor/telescope
+/config/telescope.php
 /storage/*.key
 /vendor
 .env

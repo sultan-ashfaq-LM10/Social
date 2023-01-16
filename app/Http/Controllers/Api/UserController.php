@@ -8,14 +8,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function userInfo()
-    {
-        try {
-            return response()->json(
-                new UserResource(auth()->user())
-            );
-        } catch (\Exception $exception) {
-            return response()->json($exception->getMessage(), 500);
-        }
-    }
+
+
+
+
+//    public function userInfo()
+//    {
+//        try {
+//            return response()->json(
+//                new UserResource(auth()->user())
+//            );
+//        } catch (\Exception $exception) {
+//            return response()->json($exception->getMessage(), 500);
+//        }
+//    }
 }

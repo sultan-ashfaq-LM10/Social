@@ -1,6 +1,12 @@
 <template>
   <div>
     <CreatePost @post-created="getPosts" />
+    <div
+       v-show="showSkeleton"
+       class="column is-half is-offset-one-quarter p-3 has-background-white box"
+    >
+      <Skeleton />
+    </div>
     <ListPost :posts="posts" />
   </div>
 </template>
@@ -9,9 +15,16 @@
 import { mapActions, mapState } from 'vuex'
 import CreatePost from '../Post/PostCreate.vue'
 import ListPost from '../Post/PostList.vue'
+import Skeleton from '../Skeleton.vue'
 
 export default {
-  components: { CreatePost, ListPost },
+  components: { CreatePost, ListPost, Skeleton },
+
+  data () {
+    return {
+      showSkeleton: true
+    }
+  },
 
   computed: {
     ...mapState({
@@ -29,7 +42,12 @@ export default {
     }),
 
     getPosts () {
-      this.apiGetPosts()
+      const self = this
+      const promise = this.apiGetPosts()
+      promise.then(function (resp) {
+        self.apiGetPosts(resp)
+        self.showSkeleton = false
+      })
     }
   }
 }

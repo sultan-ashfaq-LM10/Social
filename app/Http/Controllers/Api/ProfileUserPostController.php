@@ -9,7 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProfilePostController extends Controller
+class ProfileUserPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,6 @@ class ProfilePostController extends Controller
     public function __invoke(User $user)
     {
         try {
-            // if user has a accpetedFriends relationship -- then view public and everyone
-            // if user has no friend relatioship -- then view everyone
-
             $posts = Post::query()
                 ->whereIn('type', [PostTypeEnum::PUBLIC->value, PostTypeEnum::EVERYONE->value])
                 ->where('user_id', '=', request()->get('user_id'))
