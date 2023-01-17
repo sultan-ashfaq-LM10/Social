@@ -44,8 +44,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $user = User::find(Auth::id());
-        $this->authorize('update',$user); //FIXME Policies are not working
+        $this->authorize('view', $post);
         try {
 
             return response()->json(
@@ -65,6 +64,7 @@ class PostController extends Controller
      */
     public function update(StoreUpdatePostRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
         try {
             return response()->json(
                 UpdatePostAction::execute(
@@ -85,6 +85,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         try {
             return response()->json(
                 DeletePostAction::execute($post)
