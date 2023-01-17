@@ -9,51 +9,45 @@
 
 ## About Söcial
 
-Söcial is an ongoing project for my learning, improvement and fine-tuning my skill set.
+Söcial is an ongoing project for enhancing my technical proficiency and fine-tune my skill set.
 
-This is a Single Page Application, and current tech stack is:
+The project is a Single Page Application, and utilizes the following technology stack:
 
-- Laravel 9 - PHP 8.1 (Backend)
-  - Sanctum (For API authentication)
-- Vue 2 (Frontend)
-  - Vuex (State management Library)
-  - Vue Router (SPA)
-  - Buefy (Bulma UI component Library)
+- PHP 8.1
+- Laravel 9 as the Backend framework
+  - Sanctum For API authentication
+- Vue 2 as the Frontend framework
+  - Vuex for state management
+  - Vue Router for SPA routing
+  - Buefy, a UI component library built with Bulma
 
-**Current Features**:
-- Login/Register
-- Home Feed
-  - Create post (Public, Private, Everyone)
-  - Show posts with 'Everyone' visibility
-- Auth Profile (Auth user only)
-  - Create post (Public, Private, Everyone)
-  - Show posts
-- Friends
-  - Accepted Friends
-    - Remove friends
-  - Pending Friends
-    - Cancel request
-  - Friend requests
-    - Accept/Reject request
+**Currently, the project features include**:
+- User authentication and registration
+- Basic Home Feed functionality
+- The ability to create posts with varying visibility options (Public, Private, Everyone)
+- Posts with "Everyone" visibility displayed on the Home Feed
+- An authenticated user's profile section with the ability to create posts and manage friends
+- Friends management functionality including accepting/removing friends, canceling/sending friend requests, and managing pending friend requests.
+- A search functionality that allows users to search for other users by name
 
-**Future Updates**:
-- Profile Detail section
-- Public profile (all features from auth profile)
-- Post and Comment Likes (Frontend--Backend is already implemented)
-- Phpunit tests for api routes
-- Seeders (Users, Posts, Comments, Likes, etc) for generating a dummy social media data
+**Planned updates include:**:
+- A profile detail section that displays user's information
+- Public profile functionality
+- Post and comment likes
+- Phpunit tests for API routes
+- Seeders for generating dummy social media data
 
 More updates will be added as soon as the Future updates are done.
 I will be actively updating readme file to reflect the changes in the project.
 
-**How to setup this project in your local environment**:
+**How to setup this project in your local environment:**
 
-I used Laravel valet as a server and DBngin as my local mysql database. You can find the env settings in env.example file.
-It's up to you, however you want to set it up e.g. using sail, xampp, etc.
+The project is set up using Laravel Valet as the server and DBngin as the local MySQL database.
+The environment settings can be found in the env.example file.
+Your setup process may vary depending on your chosen environment and server.
+The README file will be actively updated to reflect any changes to the project.
 
-Once you have the environment setup:
-
-Run the following commands:
+** Once you have the environment setup, Run the following commands: **
 
 ```
 composer install

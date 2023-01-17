@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreUpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -42,7 +44,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $user = User::find(Auth::id());
+        $this->authorize('update',$user); //FIXME Policies are not working
         try {
+
             return response()->json(
                 new PostResource($post)
             );

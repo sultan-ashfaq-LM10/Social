@@ -7,18 +7,8 @@ use App\Models\Post;
 use App\Models\User;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class PostAPITest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_that_true_is_true()
-    {
-        $this->assertTrue(true);
-    }
-
     // test user can create a new post with public status
     public function test_user_can_create_a_new_post_with_public_status()
     {
@@ -82,6 +72,44 @@ class ExampleTest extends TestCase
         ]);
     }
 
+    // test sanctum user can view their private post using the api
+    public function test_sanctum_user_can_view_their_private_post_using_the_api()
+    {
+        // create a new user
+        $user = User::factory()->create();
+        // create a new post
+        $post = Post::factory()
+            ->state([
+                'type' => PostTypeEnum::PRIVATE->value,
+            ])
+            ->create([
+                'user_id' => $user->id
+            ]);
+        // assert that the post was created
+        $this->assertDatabaseHas('posts', [
+            'id' => $post->id,
+            'user_id' => $user->id,
+            'type' => PostTypeEnum::PRIVATE->value
+        ]);
+        // assert that the user can view the post
+        $this->actingAs($user, 'sanctum')
+            ->getJson('/api/posts/' . $post->id)
+            ->assertOk()
+            ->assertJson([
+                'id' => $post->id,
+                'content' => $post->content,
+                'type' => PostTypeEnum::PRIVATE->name,
+                'updated_at' => $post->updated_at->format('j M y \a\t H:i'),
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'avatar' => $user->avatar,
+                    ]
+                ]);
+        }
+
+
     // test sanctum user cannot user another user's private post using the api
     public function test_sanctum_user_cannot_user_another_user_s_private_post_using_the_api()
     {
@@ -97,7 +125,7 @@ class ExampleTest extends TestCase
             ]);
         // create a new user
         $user2 = User::factory()->create();
-        // assert that the post was created
+        // assert that the post cannot be accessed by the second user
         $this->actingAs($user2, 'sanctum')
             ->getJson('/api/posts/' . $post->id)
             ->assertStatus(403);
