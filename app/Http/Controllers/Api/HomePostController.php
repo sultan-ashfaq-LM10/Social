@@ -21,7 +21,7 @@ class HomePostController extends Controller
             $posts = Post::query()
                 ->where('type', '=', PostTypeEnum::EVERYONE->value)
                 ->latest()
-                ->get();
+                ->paginate(10);
             return response()->json(PostResource::collection($posts));
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);

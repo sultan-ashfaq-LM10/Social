@@ -23,9 +23,10 @@ The project is a Single Page Application, and utilizes the following technology 
 
 **Currently, the project features include**:
 - User authentication and registration
-- Basic Home Feed functionality
+- Basic Home Feed functionality (infinite scroll)
 - The ability to create posts with varying visibility options (Public, Private, Everyone)
 - Posts with "Everyone" visibility displayed on the Home Feed
+- Like Posts
 - An authenticated user's profile section with the ability to create posts and manage friends
 - Friends management functionality including accepting/removing friends, canceling/sending friend requests, and managing pending friend requests.
 - A search functionality that allows users to search for other users by name
@@ -33,7 +34,7 @@ The project is a Single Page Application, and utilizes the following technology 
 **Planned updates include:**:
 - A profile detail section that displays user's information
 - Public profile functionality
-- Post and comment likes
+- Comment likes
 - Phpunit tests for API routes
 - Seeders for generating dummy social media data
 

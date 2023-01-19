@@ -13,9 +13,9 @@ const mutations = {}
 
 // actions
 const actions = {
-    apiGetPosts({commit}) {
+    apiGetPosts({commit}, page) {
         return axios
-        .get('api/home/posts')
+        .get(`api/home/posts?page=${page}`)
         .then((resp) => {
             return resp.data;
         })

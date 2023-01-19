@@ -7,7 +7,7 @@
     >
       <Skeleton />
     </div>
-    <PostList :posts="posts" @deletePost="handleDeletePost" />
+    <PostList :posts="posts" :loading="isLoading" @deletePost="handleDeletePost" @loadMorePosts="loadMorePosts" @isLoading="isLoading" />
   </div>
 </template>
 
@@ -23,15 +23,17 @@ export default {
   data () {
     return {
       posts: [],
+      page: 1,
+      loading: false,
       showSkeleton: true
     }
   },
 
-  // computed: {
-  //   posts () {
-  //     return this.$store.state.post.homePosts
-  //   }
-  // },
+  computed: {
+    isLoading() {
+      return this.loading
+    }
+  },
 
   mounted () {
     this.getPosts()
@@ -44,12 +46,18 @@ export default {
 
     getPosts () {
       const self = this
-      const promise = this.apiGetHomePosts()
+      const promise = this.apiGetHomePosts(this.page)
       promise.then(function (resp) {
-        // self.$store.commit('post/setHomePosts', resp)
-        self.posts = resp
+        self.posts.push(...resp)
         self.showSkeleton = false
+        self.page = self.page + 1
+        self.loading = false
       })
+    },
+
+    loadMorePosts() {
+      // this.loading = true
+      this.getPosts()
     },
 
     updatePostList (post, status) {

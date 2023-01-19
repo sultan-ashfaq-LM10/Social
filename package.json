@@ -34,6 +34,7 @@
         "vuex": "^3.6.2"
     },
     "dependencies": {
-        "buefy": "^0.9.22"
+        "buefy": "^0.9.22",
+        "vue-infinite-scroll": "^2.0.2"
     }
 }
