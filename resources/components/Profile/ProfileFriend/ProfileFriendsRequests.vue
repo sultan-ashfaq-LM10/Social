@@ -2,29 +2,42 @@
   <FriendsList
     :friends="friends"
     type="Request"
+    @updateFriendsList="updateFriendsList"
   />
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import FriendsList from '../../Partials/FriendsList.vue'
 export default {
   components: { FriendsList },
 
-  computed: {
-    ...mapState({
-      friends: (state) => state.profileFriends.requestFriends
-    })
+  data () {
+    return {
+      friends: []
+    }
   },
 
   mounted () {
-    this.apiGetFriendsRequest()
+    this.getFriendsRequests()
   },
 
   methods: {
     ...mapActions({
       apiGetFriendsRequest: 'profileFriends/apiGetFriendsRequest'
-    })
+    }),
+
+    getFriendsRequests () {
+      const self = this
+      const promise = this.apiGetFriendsRequest()
+      promise.then(function (resp) {
+        self.friends = resp
+      })
+    },
+
+    updateFriendsList(friendId){
+      this.friends = this.friends.filter(friend => friend.id !== friendId)
+    },
   }
 }
 </script>

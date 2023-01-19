@@ -21,7 +21,6 @@ const mutations = {
 const actions = {
   apiSearchUsers ({commit}, query) {
     axios.get(`/api/search/users?query=${query}`).then((resp) => {
-      console.log(resp.data)
       commit('setUsers', resp.data)
     })
   }

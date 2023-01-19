@@ -1,58 +1,34 @@
 // states
-const state = {
-  acceptedFriends: [],
-  pendingFriends: [],
-  requestFriends: [],
-}
+const state = {}
 
 // getters
-const getters = {
-  getAcceptedFriends() {
-    return state.acceptedFriends
-  },
-  getPendingFriends() {
-    return state.pendingFriends
-  },
-  getRequestFriends() {
-    return state.requestFriends
-  },
-}
+const getters = {}
 
 // mutations
-const mutations = {
-  setAcceptedFriends(state, friends) {
-    state.acceptedFriends = friends
-  },
-  setPendingFriends(state, friends) {
-    state.pendingFriends = friends
-  },
-  setRequestFriends(state, friends) {
-    state.requestFriends = friends
-  },
-}
+const mutations = {}
 
 // actions
 const actions = {
   apiGetFriendsAccepted({ commit }) {
-    axios.get('/api/profile/friends?type=accepted').then((resp) => {
-      commit('setAcceptedFriends', resp.data)
+    return axios.get('/api/profile/friends?type=accepted').then((resp) => {
+      return resp.data
     })
   },
 
   apiGetFriendsPending({ commit }) {
-    axios.get('/api/profile/friends?type=pending').then((resp) => {
-      commit('setPendingFriends', resp.data)
+    return axios.get('/api/profile/friends?type=pending').then((resp) => {
+      return resp.data
     })
   },
 
   apiGetFriendsRequest({ commit }) {
-    axios.get('/api/profile/friends?type=request').then((resp) => {
-      commit('setRequestFriends', resp.data)
+    return axios.get('/api/profile/friends?type=request').then((resp) => {
+      return resp.data
     })
   },
 
   apiUpdateFriendsRequest({dispatch}, payload) {
-    axios
+    return axios
       .put(`/api/profile/friends/${payload.id}`, {
         type: payload.type,
       })

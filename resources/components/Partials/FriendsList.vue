@@ -40,13 +40,12 @@
 
 <script>
 import {mapActions} from "vuex";
-import tab from "bootstrap/js/src/tab";
 
 export default {
   props: {
     friends: {
       type: Array,
-      default: []
+      default: () => []
     },
     type: {
       type: String,
@@ -67,7 +66,7 @@ export default {
       apiUpdateFriendsRequestPromise.then(function (resp){
         // if (resp) {
           self.toastSuccess('Friend added!')
-          // self.$emit('updateFriendsList')
+        self.$emit('updateFriendsList', friendId)
         // }
       })
     },
@@ -80,7 +79,8 @@ export default {
       apiDeleteFriendPromise.then(function (resp){
         if (resp) {
           self.toastSuccess('Friend removed!')
-          // self.$emit('updateFriendsList')
+          console.log(friendId)
+          self.$emit('updateFriendsList', friendId)
         }
       })
     }

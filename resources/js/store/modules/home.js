@@ -17,7 +17,6 @@ const actions = {
         return axios
         .get('api/home/posts')
         .then((resp) => {
-            // commit("setPosts", resp.data);
             return resp.data;
         })
         .catch((error) => {
