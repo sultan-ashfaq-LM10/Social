@@ -10,7 +10,7 @@
         :key="post.id"
         class="column is-half is-offset-one-quarter p-3 has-background-white box"
       >
-        <PartialPostItem :post="post" />
+        <PartialPostItem :post="post" @deletePost="$emit('deletePost', $event)" />
       </div>
     </transition-group>
   </div>
@@ -27,6 +27,7 @@ export default {
       type: Array,
       default: null
     }
-  }
+  },
+
 }
 </script>

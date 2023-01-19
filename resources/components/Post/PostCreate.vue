@@ -73,7 +73,14 @@ export default {
         if (resp.status === 200) {
           self.content = ''
           self.toastSuccess('Post successfully created!')
-          self.$emit('post-created', resp.data)
+          // if (resp.data.type === 'EVERYONE') {
+            self.$emit('post-created', resp.data, resp.data.type)
+            // self.$store.commit('post/addToHomePostList', resp.data)
+          // } else {
+
+            // self.$store.commit('post/addToProfilePostList', resp.data)
+          // }
+
           return
         }
         if (resp.status === 422) {

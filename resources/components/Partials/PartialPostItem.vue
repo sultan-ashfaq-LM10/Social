@@ -3,6 +3,9 @@
     <div class="is-flex">
       <img class="homefeed-placeholder-img mx-2" :src="post.user.avatar" />
       <span>{{ post.user.name }}</span>
+      <b-tooltip v-if="this.$store.state.authUser.id == post.user.id" class="ml-auto" label="Remove post" type="is-danger" position="is-bottom">
+        <b-icon class="is-clickable" @click.native="deletePost(post.id)" pack="fas" icon="times" size="is-medium" type="is-primary" />
+      </b-tooltip>
     </div>
     <div>
       <span class="is-size-7"> {{ post.updated_at }} </span>
@@ -106,6 +109,10 @@ export default {
           }
         })
       })
+    },
+
+    deletePost(postId) {
+      this.$emit('deletePost', postId)
     },
   },
 }
