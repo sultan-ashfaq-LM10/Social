@@ -29,6 +29,17 @@ const actions = {
         return error.response;
       })
   },
+
+  apiStoreLike({}, postId) {
+    return axios
+      .post(`api/posts/${postId}/likes`,)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((error) => {
+        return error.response;
+      })
+  }
 }
 
 export default {

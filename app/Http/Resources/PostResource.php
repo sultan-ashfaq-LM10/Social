@@ -18,9 +18,11 @@ class PostResource extends JsonResource
         return [
             'id'        => $this->id,
             'content'   => $this->content,
-            'type'    => PostTypeEnum::from($this->type)->name,
+            'type'      => PostTypeEnum::from($this->type)->name,
             'updated_at' => $this->updated_at->format('j M y \a\t H:i'),
             'user'      => new UserResource($this->user),
+            'likes'     => LikeResource::collection($this->likes),
+            'comments'  => CommentResource::collection($this->comments),
         ];
     }
 }

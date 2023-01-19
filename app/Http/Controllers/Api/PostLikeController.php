@@ -7,6 +7,7 @@ use App\Actions\PostLikes\StorePostLikeAction;
 use App\Actions\PostLikes\UpdatePostLikeAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostLike\StoreUpdateLikeRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -33,14 +34,12 @@ class PostLikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreUpdateLikeRequest $request, Post $post)
+    public function store(Request $request, Post $post)
     {
         try {
             return response()->json(
-                StorePostLikeAction::execute(
-                    $request->validated(),
-                    $post,
-                    auth()->user()
+                new PostResource(
+                    StorePostLikeAction::execute($post, auth()->user())
                 )
             );
         } catch (\Exception $exception) {

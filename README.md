@@ -47,7 +47,7 @@ The environment settings can be found in the env.example file.
 Your setup process may vary depending on your chosen environment and server.
 The README file will be actively updated to reflect any changes to the project.
 
-** Once you have the environment setup, Run the following commands: **
+**Once you have the environment setup, Run the following commands:**
 
 ```
 composer install

@@ -65,6 +65,25 @@
           />
         </b-tooltip>
       </b-navbar-item>
+
+<!--      <b-navbar-item-->
+<!--         class="px-5 is-active-helper"-->
+<!--         tag="router-link"-->
+<!--         :to="{ name: 'Profile' }"-->
+<!--      >-->
+<!--        <b-tooltip-->
+<!--           label="2 New messages"-->
+<!--           type="is-success"-->
+<!--           position="is-bottom"-->
+<!--        >-->
+<!--          <b-icon-->
+<!--             pack="fas"-->
+<!--             icon="bell"-->
+<!--             size="is-medium"-->
+<!--             type="is-danger"-->
+<!--          />-->
+<!--        </b-tooltip>-->
+<!--      </b-navbar-item>-->
     </template>
 
     <template #end>

@@ -14,7 +14,7 @@ export default new Vuex.Store({
     profile,
     profileFriends,
     post,
-    search
+    search,
   },
 
   state: {
