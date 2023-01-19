@@ -44,20 +44,20 @@
     </div>
     <div class="d-block">
       <hr />
-      <b-button size="is-small" type="is-primary" @click="likePost(post.id)">
-        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />
-        <span v-if="isLiked"> Unlike</span>
-        <span v-else> Like</span>
-      </b-button>
-<!--      <b-button v-if="isLiked" size="is-small" type="is-primary" @click="likePost(post.id)">-->
+<!--      <b-button size="is-small" type="is-primary" @click="likePost(post.id)">-->
 <!--        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />-->
-<!--        <span> Unlike</span>-->
+<!--        <span v-if="isLiked"> Unlike</span>-->
+<!--        <span v-else> Like</span>-->
 <!--      </b-button>-->
+      <b-button v-if="isLiked" size="is-small" type="is-primary" @click="likePost(post.id, false)">
+        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />
+        <span> Unlike</span>
+      </b-button>
 
-<!--      <b-button v-else size="is-small" type="is-primary" @click="likePost(post.id)">-->
-<!--        <b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />-->
-<!--        <span> Like</span>-->
-<!--      </b-button>-->
+      <b-button v-else size="is-small" type="is-primary" @click="likePost(post.id, true)">
+        <b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />
+        <span> Like</span>
+      </b-button>
 
 
       <b-button size="is-small is-pulled-right " type="is-primary">
@@ -90,30 +90,25 @@ export default {
     }),
 
 
-    likePost(postId) {
+    likePost(postId, status) {
       let self = this
       let apiStoreLikePromise = this.apiStoreLike(postId)
       apiStoreLikePromise.then(function (resp) {
         let newLikes = resp.likes
         // compare newLikes with self.post.likes and if newLike is not in self.post.likes then add it
-        // if (self.isLiked === true) {
-        //   newLikes.forEach((newLike) => {
-        //     if (!self.post.likes.some((like) => like.id === newLike.id)) {
-        //       self.post.likes.push(newLike)
-        //     }
-        //   })
-        //   return
-        // }
-
-
+        if (status === true) {
+          newLikes.forEach((newLike) => {
+            if (!self.post.likes.some((like) => like.id === newLike.id)) {
+              self.post.likes.push(newLike)
+            }
+          })
+          return
+        }
         // compare self.post.likes with newLikes and if self.post.likes is not in newLikes then remove it
-
         self.post.likes.forEach((like) => {
           if (!newLikes.some((newLike) => newLike.id === like.id)) {
             console.log('removing like')
             self.post.likes.splice(self.post.likes.indexOf(like), 1)
-          }else {
-            console.log('nothing' )
           }
         })
       })

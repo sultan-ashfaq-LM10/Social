@@ -26,9 +26,11 @@ class PostController extends Controller
     {
         try {
             return response()->json(
-                StorePostAction::execute(
-                    $request->validated(),
-                    Auth::user()
+                new PostResource(
+                    StorePostAction::execute(
+                        $request->validated(),
+                        Auth::user()
+                    )
                 )
             );
         } catch (\Exception $exception) {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreatePost @post-created="getPosts" />
+    <CreatePost @post-created="updatePostList" />
     <div
       v-show="showSkeleton"
       class="column is-half is-offset-one-quarter p-3 has-background-white box"
@@ -23,14 +23,9 @@ export default {
 
   data () {
     return {
+      posts: [],
       showSkeleton: true
     }
-  },
-
-  computed: {
-    ...mapState({
-      posts: (state) => state.home.posts
-    })
   },
 
   mounted () {
@@ -41,17 +36,18 @@ export default {
     ...mapActions({
       apiGetHomePosts: 'home/apiGetPosts'
     }),
-    ...mapMutations({
-      setPosts: 'home/setPosts'
-    }),
 
     getPosts () {
       const self = this
       const promise = this.apiGetHomePosts()
       promise.then(function (resp) {
-        self.setPosts(resp)
+        self.posts = resp
         self.showSkeleton = false
       })
+    },
+
+    updatePostList (post) {
+      this.posts.unshift(post)
     }
   }
 }

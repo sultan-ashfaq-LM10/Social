@@ -74,7 +74,7 @@ export default {
           // post successfully created
           self.content = ''
           self.toastSuccess('Post successfully created!')
-          self.$emit('post-created')
+          self.$emit('post-created', resp.data)
           return
         }
         if (resp.status === 422) {
