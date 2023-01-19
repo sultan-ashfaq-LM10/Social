@@ -71,7 +71,6 @@ export default {
       const apiStorePostPromise = this.apiStorePost(payload)
       apiStorePostPromise.then(function (resp) {
         if (resp.status === 200) {
-          // post successfully created
           self.content = ''
           self.toastSuccess('Post successfully created!')
           self.$emit('post-created', resp.data)

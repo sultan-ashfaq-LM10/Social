@@ -47,7 +47,9 @@ export default {
     },
 
     updatePostList (post) {
-      this.posts.unshift(post)
+      if (post.type === 'EVERYONE') {
+        this.posts.unshift(post)
+      }
     }
   }
 }

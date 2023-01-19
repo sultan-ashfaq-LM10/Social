@@ -1,7 +1,5 @@
 // states
-const state = {
-    posts: []
-}
+const state = {}
 
 // getters
 const getters = {
@@ -11,11 +9,7 @@ const getters = {
 }
 
 // mutations
-const mutations = {
-    setPosts(state, posts){
-        state.posts = posts
-    }
-}
+const mutations = {}
 
 // actions
 const actions = {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreatePost @post-created="getPosts" />
+    <CreatePost @post-created="updatePostList" />
     <div
        v-show="showSkeleton"
        class="column is-half is-offset-one-quarter p-3 has-background-white box"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import CreatePost from '../Post/PostCreate.vue'
 import ListPost from '../Post/PostList.vue'
 import Skeleton from '../Skeleton.vue'
@@ -22,14 +22,9 @@ export default {
 
   data () {
     return {
+      posts: [],
       showSkeleton: true
     }
-  },
-
-  computed: {
-    ...mapState({
-      posts: (state) => state.profile.posts
-    })
   },
 
   mounted () {
@@ -45,9 +40,13 @@ export default {
       const self = this
       const promise = this.apiGetPosts()
       promise.then(function (resp) {
-        self.apiGetPosts(resp)
+        self.posts = resp
         self.showSkeleton = false
       })
+    },
+
+    updatePostList (post){
+        this.posts.unshift(post)
     }
   }
 }
