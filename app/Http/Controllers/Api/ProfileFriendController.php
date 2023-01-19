@@ -20,11 +20,11 @@ class ProfileFriendController extends Controller
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(FriendsGetAction $friendsGetAction)
     {
         try {
             return response()->json(
-                FriendResource::collection(FriendsGetAction::execute(auth()->user()))
+                FriendResource::collection($friendsGetAction->handle(auth()->user()))
             );
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
@@ -37,11 +37,11 @@ class ProfileFriendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreFriendRequest $request)
+    public function store(StoreFriendRequest $request, FriendStoreAction $friendStoreAction)
     {
         try {
             return response()->json(
-                FriendStoreAction::execute($request->validated()['user_id'], auth()->user())
+                $friendStoreAction->handle($request->validated()['user_id'], auth()->user())
             );
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
@@ -56,10 +56,12 @@ class ProfileFriendController extends Controller
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function update(UpdateFriendRequest $request, $friendId)
+    public function update(UpdateFriendRequest $request, $friendId, FriendUpdateAction $friendUpdateAction)
     {
         try {
-            return response()->json(FriendUpdateAction::execute($request->validated(), auth()->user(), $friendId));
+            return response()->json(
+                $friendUpdateAction->handle($request->validated(), auth()->user(), $friendId)
+            );
         }
         catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
@@ -72,47 +74,13 @@ class ProfileFriendController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($friendId)
+    public function destroy($friendId, FriendDeleteAction $friendDeleteAction)
     {
         try {
-            return response()->json(FriendDeleteAction::execute(auth()->id(), $friendId));
+            return response()->json($friendDeleteAction->handle(auth()->id(), $friendId));
         }
         catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
     }
-
-//    /**
-//     * Get accepted friends only.
-//     *
-//     * @param User $user
-//     * @return \Illuminate\Http\JsonResponse
-//     */
-//    public function accepted()
-//    {
-//        try {
-//            return response()->json(
-//                FriendResource::collection(auth()->user()->acceptedFriends)
-//            );
-//        } catch (\Exception $exception) {
-//            return response()->json($exception->getMessage(), 500);
-//        }
-//    }
-//
-//    /**
-//     * Get pending friends only.
-//     *
-//     * @param User $user
-//     * @return \Illuminate\Http\JsonResponse
-//     */
-//    public function pending()
-//    {
-//        try {
-//            return response()->json(
-//                FriendResource::collection(auth()->user()->pendingFriends)
-//            );
-//        } catch (\Exception $exception) {
-//            return response()->json($exception->getMessage(), 500);
-//        }
-//    }
 }

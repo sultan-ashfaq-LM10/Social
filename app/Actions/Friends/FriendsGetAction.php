@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class FriendsGetAction
 {
-    public static function execute(User|Authenticatable $user): bool|Collection
+    public function handle(User|Authenticatable $user): bool|Collection
     {
         if (!request()->has('type')) {
             return false;

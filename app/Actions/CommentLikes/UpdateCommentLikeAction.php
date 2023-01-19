@@ -6,7 +6,7 @@ use App\Models\Like;
 
 class UpdateCommentLikeAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         Like $like
     ): bool {

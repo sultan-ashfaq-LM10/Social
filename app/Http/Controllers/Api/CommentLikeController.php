@@ -33,16 +33,11 @@ class CommentLikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreUpdateLikeRequest $request, Comment $comment)
+    public function store(Request $request, Comment $comment, StoreCommentLikeAction $storeCommentLikeAction)
     {
         try {
-            return response()->json(
-                StoreCommentLikeAction::execute(
-                    $request->validated(),
-                    $comment,
-                    auth()->user()
-                )
-            );
+            $like = $storeCommentLikeAction->handle($comment, $request->user());
+            return response()->json($like);
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
@@ -55,7 +50,7 @@ class CommentLikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(StoreUpdateLikeRequest $request, Comment $comment, Like $like)
+    public function update(Request $request, Comment $comment, Like $like)
     {
         try {
             return response()->json(

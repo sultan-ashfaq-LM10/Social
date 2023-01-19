@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class StorePostAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         User|Authenticatable $user
     ): Post {

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class StorePostLikeAction
 {
-    public static function execute(
+    public function handle(
         Post $post,
         User|Authenticatable $user
     ): Post {

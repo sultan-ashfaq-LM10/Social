@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class FriendStoreAction
 {
-    public static function execute(
+    public function handle(
         int $userId,
         User|Authenticatable $user
     ): bool {

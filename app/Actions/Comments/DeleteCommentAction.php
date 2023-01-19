@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class DeleteCommentAction
 {
-    public static function execute(Comment $comment): bool|null
+    public function handle(Comment $comment): bool|null
     {
         return $comment->delete();
     }

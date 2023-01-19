@@ -22,15 +22,12 @@ class PostController extends Controller
      * @param StoreUpdatePostRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreUpdatePostRequest $request)
+    public function store(StoreUpdatePostRequest $request, StorePostAction $storePostAction)
     {
         try {
             return response()->json(
                 new PostResource(
-                    StorePostAction::execute(
-                        $request->validated(),
-                        Auth::user()
-                    )
+                    $storePostAction->handle($request->validated(), auth()->user())
                 )
             );
         } catch (\Exception $exception) {
@@ -64,14 +61,13 @@ class PostController extends Controller
      * @param Post $post
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(StoreUpdatePostRequest $request, Post $post)
+    public function update(StoreUpdatePostRequest $request, Post $post, UpdatePostAction $updatePostAction)
     {
         $this->authorize('update', $post);
         try {
             return response()->json(
-                UpdatePostAction::execute(
-                    $request->validated(),
-                    $post
+                new PostResource(
+                    $updatePostAction->handle($request->validated(), $post)
                 )
             );
         } catch (\Exception $exception) {
@@ -85,13 +81,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, DeletePostAction $deletePostAction)
     {
         $this->authorize('delete', $post);
         try {
-            return response()->json(
-                DeletePostAction::execute($post)
-            );
+            $deletePostAction->handle($post);
+            return response()->json(null, 204);
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }

@@ -34,47 +34,14 @@ class PostLikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request, Post $post, StorePostLikeAction $storePostLikeAction)
     {
         try {
             return response()->json(
                 new PostResource(
-                    StorePostLikeAction::execute($post, auth()->user())
+                    $storePostLikeAction->handle($post, auth()->user())
                 )
             );
-        } catch (\Exception $exception) {
-            return response()->json($exception->getMessage(), 500);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(StoreUpdateLikeRequest $request, Post $post, Like $like)
-    {
-        try {
-            return response()->json(
-                UpdatePostLikeAction::execute($request->validated(), $like)
-            );
-        } catch (\Exception $exception) {
-            return response()->json($exception->getMessage(), 500);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(Post $post, Like $like)
-    {
-        try {
-            return response()->json(DeletePostLikeAction::execute($like));
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }

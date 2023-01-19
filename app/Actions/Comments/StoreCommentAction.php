@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class StoreCommentAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         Post $post,
         User|Authenticatable $user

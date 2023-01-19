@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class DeletePostLikeAction
 {
-    public static function execute(Like $like): bool|null
+    public function handle(Like $like): bool|null
     {
         return $like->delete();
     }

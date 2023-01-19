@@ -6,7 +6,7 @@ use App\Models\Like;
 
 class DeleteCommentLikeAction
 {
-    public static function execute(Like $like): bool|null
+    public function handle(Like $like): bool|null
     {
         return $like->delete();
     }

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdatePostLikeAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         Like $like
     ): bool {

@@ -31,10 +31,10 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreUpdateCommentRequest $request, Post $post)
+    public function store(StoreUpdateCommentRequest $request, Post $post, StoreCommentAction $storeCommentAction)
     {
         try {
-            return response()->json(StoreCommentAction::execute($request->validated(), $post, auth()->user()));
+            return response()->json($storeCommentAction->handle($request->validated(), $post, auth()->user()));
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
@@ -47,12 +47,10 @@ class CommentController extends Controller
      * @param Comment $comment
      * @return JsonResponse
      */
-    public function update(StoreUpdateCommentRequest $request, Comment $comment)
+    public function update(StoreUpdateCommentRequest $request, Comment $comment, UpdateCommentAction $updateCommentAction)
     {
         try {
-            return response()->json(
-                UpdateCommentAction::execute($request->validated(), $comment)
-            );
+            return response()->json($updateCommentAction->handle($request->validated(), $comment));
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
@@ -64,10 +62,10 @@ class CommentController extends Controller
      * @param Comment $comment
      * @return JsonResponse
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment, DeleteCommentAction $deleteCommentAction)
     {
         try {
-            return response()->json(DeleteCommentAction::execute($comment));
+            return response()->json($deleteCommentAction->handle($comment));
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }

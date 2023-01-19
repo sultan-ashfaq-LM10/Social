@@ -15,7 +15,7 @@ class FriendUpdateAction
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public static function execute(
+    public function handle(
         array $data,
         User|Authenticatable $user,
         int $friendId): bool

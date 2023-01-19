@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class FriendDeleteAction
 {
-    public static function execute(int $userId, int $friendId): bool
+    public function handle(int $userId, int $friendId): bool
     {
         return DB::table('friends')
             ->where(function ($query) use($userId, $friendId) {

@@ -8,10 +8,11 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdatePostAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         Post $post
     ): bool {
-        return $post->update($data);
+        $post->update($data);
+        return tap($post)->refresh();
     }
 }

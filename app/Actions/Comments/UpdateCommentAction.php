@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdateCommentAction
 {
-    public static function execute(
+    public function handle(
         array $data,
         Comment $comment
     ): bool {
