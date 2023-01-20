@@ -17,7 +17,7 @@
                  pack="fas"
                  icon="times"
                  size="is-medium"
-                 type="is-primary"
+                 type="is-danger"
               />
             </b-tooltip>
             <span class="has-text-weight-bold">{{ comment.user.name }}</span>
