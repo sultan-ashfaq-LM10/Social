@@ -7,7 +7,14 @@
     >
       <Skeleton />
     </div>
-    <PostList :posts="posts" :loading="isLoading" @deletePost="handleDeletePost" @loadMorePosts="loadMorePosts" @isLoading="isLoading" />
+    <PostList
+      :posts="posts"
+      :loading="isLoading"
+      @deletePost="handleDeletePost"
+      @loadMorePosts="loadMorePosts"
+      @addComment="handleAddComment"
+      @isLoading="isLoading"
+    />
   </div>
 </template>
 
@@ -20,31 +27,31 @@ import Skeleton from '../Skeleton.vue'
 export default {
   components: { CreatePost, PostList, Skeleton },
 
-  data () {
+  data() {
     return {
       posts: [],
       page: 1,
       loading: false,
-      showSkeleton: true
+      showSkeleton: true,
     }
   },
 
   computed: {
     isLoading() {
       return this.loading
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     this.getPosts()
   },
 
   methods: {
     ...mapActions({
-      apiGetHomePosts: 'home/apiGetPosts'
+      apiGetHomePosts: 'home/apiGetPosts',
     }),
 
-    getPosts () {
+    getPosts() {
       const self = this
       const promise = this.apiGetHomePosts(this.page)
       promise.then(function (resp) {
@@ -60,13 +67,13 @@ export default {
       this.getPosts()
     },
 
-    updatePostList (post, status) {
+    updatePostList(post, status) {
       if (status == 'EVERYONE') {
         this.posts = [post, ...this.posts]
       }
     },
 
-    handleDeletePost (postId) {
+    handleDeletePost(postId) {
       let self = this
       let promise = this.$store.dispatch('post/apiDeletePost', postId)
       promise.then((resp) => {
@@ -89,6 +96,18 @@ export default {
 
       //In summary, it's better to create a new copy of the state object, but it's also important to evaluate whether the performance trade-off is worth it.
     },
-  }
+
+    handleAddComment(commentObj) {
+      console.log('handleAddComment', commentObj)
+      let self = this
+      let promise = this.$store.dispatch('post/apiStoreComment', commentObj)
+      promise.then((resp) => {
+        console.log(resp)
+        // if (resp.status == 201) {
+        //   self.addCommentToList(resp.data)
+        // }
+      })
+    },
+  },
 }
 </script>

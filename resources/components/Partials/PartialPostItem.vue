@@ -1,10 +1,23 @@
 <template>
   <div>
     <div class="is-flex">
-      <img class="homefeed-placeholder-img mx-2" :src="post.user.avatar" />
+      <img class="homefeed-post-placeholder-img mx-2" :src="post.user.avatar" />
       <span>{{ post.user.name }}</span>
-      <b-tooltip v-if="this.$store.state.authUser.id == post.user.id" class="ml-auto" label="Remove post" type="is-danger" position="is-bottom">
-        <b-icon class="is-clickable" @click.native="deletePost(post.id)" pack="fas" icon="times" size="is-medium" type="is-primary" />
+      <b-tooltip
+        v-if="this.$store.state.authUser.id == post.user.id"
+        class="ml-auto"
+        label="Remove post"
+        type="is-danger"
+        position="is-bottom"
+      >
+        <b-icon
+          class="is-clickable"
+          @click.native="deletePost(post.id)"
+          pack="fas"
+          icon="times"
+          size="is-medium"
+          type="is-primary"
+        />
       </b-tooltip>
     </div>
     <div>
@@ -41,41 +54,61 @@
       <div class="m-3 is-inline">
         <b-tooltip label="Total comments" type="is-dark" position="is-bottom">
           <b-icon pack="fas" icon="comment" size="is-medium" type="is-primary" />
-          {{ post.comments.length}}
+          {{ post.comments.length }}
         </b-tooltip>
       </div>
     </div>
     <div class="d-block">
       <hr />
-      <b-button v-if="isLiked" size="is-small" type="is-primary" @click="likePost(post.id, false)">
-        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />
+      <b-button v-if="isLiked" size="is-small" type="is-light" @click="likePost(post.id, false)">
+        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-primary" />
         <span> Unlike</span>
       </b-button>
 
-      <b-button v-else size="is-small" type="is-primary" @click="likePost(post.id, true)">
+      <b-button v-else size="is-small" type="is-light" @click="likePost(post.id, true)">
         <b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-secondary" />
         <span> Like</span>
       </b-button>
 
-
-      <b-button size="is-small is-pulled-right " type="is-primary">
+      <b-button size="is-small is-pulled-right " type="is-light" @click="showComments = true">
         ><b-icon pack="fas" icon="comment" size="is-medium" type="is-secondary" />
         <span>Comment</span>
       </b-button>
       <hr />
+
+      <b-field>
+        <b-input
+          placeholder="Write a comment"
+          type="search"
+          icon-pack="fas"
+          icon="comment"
+          @keyup.native.enter="addComment(post.id, $event.target.value)"
+        >
+        </b-input>
+      </b-field>
+
+      <PartialPostItemComments :post="post" v-show="showComments" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import PartialPostItemComments from './PartialPostItemComments.vue'
 export default {
+  components: { PartialPostItemComments },
   props: {
     post: {
       type: Object,
       default: null,
     },
   },
+  data() {
+    return {
+      showComments: false,
+    }
+  },
+
   computed: {
     isLiked() {
       return this.post.likes.some((like) => like.user.id === this.$store.state.authUser.id)
@@ -86,7 +119,6 @@ export default {
     ...mapActions({
       apiStoreLike: 'post/apiStoreLike',
     }),
-
 
     likePost(postId, status) {
       let self = this
@@ -113,6 +145,10 @@ export default {
 
     deletePost(postId) {
       this.$emit('deletePost', postId)
+    },
+
+    addComment(postId, comment) {
+      this.$emit('addComment', { postId, body: comment })
     },
   },
 }

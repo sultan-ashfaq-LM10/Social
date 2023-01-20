@@ -76,6 +76,17 @@ const actions = {
         return error.response
       })
   },
+
+  apiStoreComment({}, payload) {
+    return axios
+      .post(`api/posts/${payload.postId}/comments`, { payload: payload })
+      .then((resp) => {
+        return resp.data
+      })
+      .catch((error) => {
+        return error.response
+      })
+  }
 }
 
 export default {

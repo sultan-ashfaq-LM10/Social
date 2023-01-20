@@ -6,18 +6,19 @@
         :key="post.id"
         class="column is-half is-offset-one-quarter p-3 has-background-white box"
       >
-        <PartialPostItem :post="post" @deletePost="$emit('deletePost', $event)" />
+        <PartialPostItem
+          :post="post"
+          @deletePost="$emit('deletePost', $event)"
+          @addComment="$emit('addComment', $event)"
+        />
       </div>
     </transition-group>
-    <div v-infinite-scroll="loadMore" class="loading-container column is-half is-offset-one-quarter p-3">
-
+    <div
+      v-infinite-scroll="loadMore"
+      class="loading-container column is-half is-offset-one-quarter p-3"
+    >
       <div v-if="loading" class="loading-text">
-        <b-icon
-           pack="fas"
-           icon="sync-alt"
-           size="is-large"
-           custom-class="fa-spin">
-        </b-icon>
+        <b-icon pack="fas" icon="sync-alt" size="is-large" custom-class="fa-spin"> </b-icon>
       </div>
     </div>
   </div>

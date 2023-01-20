@@ -8,12 +8,16 @@ body {
 .bg-gray {
     background-color: $body-bg;
 }
-.homefeed-placeholder-img {
+.homefeed-post-placeholder-img {
     width: 40px!important;
     height: 40px!important;
     border-radius: 50%!important;
 }
-
+.homefeed-comment-placeholder-img {
+  width: 25px!important;
+  height: 25px!important;
+  border-radius: 50%!important;
+}
 .list-item {
     display: inline-block;
     margin-right: 10px;

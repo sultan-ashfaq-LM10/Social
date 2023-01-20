@@ -29,4 +29,9 @@ class StoreUpdateCommentRequest extends FormRequest
             'body'      => ['required', 'max:2000'],
         ];
     }
+
+    public function validationData()
+    {
+        return $this->payload;
+    }
 }
