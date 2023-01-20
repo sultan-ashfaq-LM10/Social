@@ -17,7 +17,6 @@ class StorePostLikeAction
         $likeQuery = $post->likes()->where('user_id', $user->id);
         if (!$likeQuery->exists()) {
             $like = new Like();
-            $like->liked = 1; //TODO: remove this liked column
             $like->user()->associate($user);
             $post->likes()->save($like);
         } else {
