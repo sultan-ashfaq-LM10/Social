@@ -9,7 +9,6 @@
         <PartialPostItem
           :post="post"
           @deletePost="$emit('deletePost', $event)"
-          @addComment="$emit('addComment', $event)"
         />
       </div>
     </transition-group>

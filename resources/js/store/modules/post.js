@@ -81,7 +81,17 @@ const actions = {
     return axios
       .post(`api/posts/${payload.postId}/comments`, { payload: payload })
       .then((resp) => {
-        return resp.data
+        return resp
+      })
+      .catch((error) => {
+        return error.response
+      })
+  },
+  apiDeleteComment({}, payload) {
+    return axios
+      .delete(`api/posts/${payload.postId}/comments/${payload.commentId}`)
+      .then((resp) => {
+        return resp
       })
       .catch((error) => {
         return error.response

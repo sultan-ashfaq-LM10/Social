@@ -34,7 +34,9 @@ class CommentController extends Controller
     public function store(StoreUpdateCommentRequest $request, Post $post, StoreCommentAction $storeCommentAction)
     {
         try {
-            return response()->json($storeCommentAction->handle($request->validated(), $post, auth()->user()));
+            return response()->json(
+                new CommentResource($storeCommentAction->handle($request->validated(), $post, auth()->user()))
+            );
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
@@ -62,7 +64,7 @@ class CommentController extends Controller
      * @param Comment $comment
      * @return JsonResponse
      */
-    public function destroy(Comment $comment, DeleteCommentAction $deleteCommentAction)
+    public function destroy(Post $post, Comment $comment, DeleteCommentAction $deleteCommentAction)
     {
         try {
             return response()->json($deleteCommentAction->handle($comment));

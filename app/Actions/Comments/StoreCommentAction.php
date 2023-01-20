@@ -13,10 +13,11 @@ class StoreCommentAction
         array $data,
         Post $post,
         User|Authenticatable $user
-    ): bool {
+    ): Comment {
         $comment = new Comment($data);
         $comment->user()->associate($user);
         $comment->post()->associate($post);
-        return $comment->save();
+        $comment->save();
+        return $comment;
     }
 }

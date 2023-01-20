@@ -61,7 +61,7 @@
     <div class="d-block">
       <hr />
       <b-button v-if="isLiked" size="is-small" type="is-light" @click="likePost(post.id, false)">
-        ><b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-primary" />
+        <b-icon pack="fas" icon="thumbs-up" size="is-medium" type="is-primary" />
         <span> Unlike</span>
       </b-button>
 
@@ -71,7 +71,7 @@
       </b-button>
 
       <b-button size="is-small is-pulled-right " type="is-light" @click="showComments = true">
-        ><b-icon pack="fas" icon="comment" size="is-medium" type="is-secondary" />
+        <b-icon pack="fas" icon="comment" size="is-medium" type="is-secondary" />
         <span>Comment</span>
       </b-button>
       <hr />
@@ -82,12 +82,13 @@
           type="search"
           icon-pack="fas"
           icon="comment"
-          @keyup.native.enter="addComment(post.id, $event.target.value)"
+          v-model="commentBody"
+          @keyup.native.enter="addComment(post.id)"
         >
         </b-input>
       </b-field>
 
-      <PartialPostItemComments :post="post" v-show="showComments" />
+      <PartialPostItemComments :post="post" v-show="showComments" @deleteComment="deleteComment" />
     </div>
   </div>
 </template>
@@ -105,6 +106,7 @@ export default {
   },
   data() {
     return {
+      commentBody: '',
       showComments: false,
     }
   },
@@ -147,8 +149,32 @@ export default {
       this.$emit('deletePost', postId)
     },
 
-    addComment(postId, comment) {
-      this.$emit('addComment', { postId, body: comment })
+    addComment(postId) {
+      // this.$emit('addComment', { postId, body: comment })
+      let self = this
+      let promise = this.$store.dispatch('post/apiStoreComment', { postId, body: this.commentBody })
+      promise.then((resp) => {
+        if (resp.status == 200) {
+          console.log(resp.data)
+          self.post.comments.unshift(resp.data)
+          self.commentBody = ''
+        }
+      })
+    },
+    deleteComment(payload) {
+      let self = this
+      let promise = this.$store.dispatch('post/apiDeleteComment', payload)
+      promise.then((resp) => {
+        console.log(resp)
+        if (resp.data) {
+          console.log(resp.data)
+          self.post.comments.splice(
+            self.post.comments.findIndex((comment) => comment.id === payload.commentId),
+            1
+          )
+        }
+      })
+
     },
   },
 }

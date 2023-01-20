@@ -12,7 +12,6 @@
       :loading="isLoading"
       @deletePost="handleDeletePost"
       @loadMorePosts="loadMorePosts"
-      @addComment="handleAddComment"
       @isLoading="isLoading"
     />
   </div>
@@ -95,18 +94,6 @@ export default {
       // state.homePosts = state.homePosts.filter((item) => item.id !== postId)
 
       //In summary, it's better to create a new copy of the state object, but it's also important to evaluate whether the performance trade-off is worth it.
-    },
-
-    handleAddComment(commentObj) {
-      console.log('handleAddComment', commentObj)
-      let self = this
-      let promise = this.$store.dispatch('post/apiStoreComment', commentObj)
-      promise.then((resp) => {
-        console.log(resp)
-        // if (resp.status == 201) {
-        //   self.addCommentToList(resp.data)
-        // }
-      })
     },
   },
 }
